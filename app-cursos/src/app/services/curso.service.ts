@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Curso } from './cursos-lista/curso-model';
 import { tap } from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
+import { Curso } from '../cursos/cursos-lista/curso-model';
 
 @Injectable({
   providedIn: 'root'
