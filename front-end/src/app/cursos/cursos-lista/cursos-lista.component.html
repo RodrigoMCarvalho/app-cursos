@@ -28,7 +28,7 @@
                 Atualizar
               </button>
 
-              <button class="btn btn-outline-danger mb-1 btn-sm" >
+              <button class="btn btn-outline-danger mb-1 btn-sm" (click)="remover(curso.id)">
                 Remover
               </button>
             </span>
@@ -37,7 +37,6 @@
       </tbody>
     </table>
 
-
     <ng-template #loading>
       <div *ngIf="error$ | async; else loadingNoError" >
         Erro ao carregar os cursos. Tente novamente mais tarde.
@@ -45,6 +44,14 @@
       <ng-template #loadingNoError>
         <span>Carregando os cursos .....</span>
       </ng-template>
+    </ng-template>
+
+    <ng-template #deleteModal>
+      <div class="modal-body text-center">
+        <p>Confirma a exclusão do curso?</p>
+        <button type="button" class="btn btn-default" (click)="confirmarExclusao()">Sim</button>
+        <button type="button" class="btn btn-primary" (click)="cancelarExclusao()">Não</button>
+      </div>
     </ng-template>
 
   </div>

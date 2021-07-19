@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { delay, take, tap } from 'rxjs/operators'
+import { delay, take } from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
 import { Curso } from '../models/curso-model';
 
@@ -21,8 +21,19 @@ export class CursoService {
       );
   }
 
-  salvar(curso) {
+  salvar(curso: Curso) {
     return this.http.post(`${this.API}/cursos`, curso)
       .pipe(take(1));
   }
+
+  atualizar(curso: Curso) {
+    return this.http.put(`${this.API}/cursos/${curso.id}`, curso)
+      .pipe(take(1));
+  }
+
+  remover(id: number) {
+    return this.http.delete(`${this.API}/cursos/${id}`)
+      .pipe(take(1));
+  }
+
 }

@@ -1,9 +1,9 @@
 import { CursoService } from './../../services/curso.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Curso } from '../../models/curso-model';
 import { BehaviorSubject, empty, Observable, Subject } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from './../../shared/alert-modal/alert-modal.component';
 import { TesteModalComponent } from './../../shared/teste-modal/teste-modal.component';
@@ -17,13 +17,18 @@ import { CursosFormModalComponent } from './../cursos-form-modal/cursos-form-mod
 })
 export class CursosListaComponent implements OnInit {
 
+  @ViewChild('deleteModal') deleteModal;
+
   // cursos: Curso[];
   cursos$: Observable<Curso[]>;
   error$ = new Subject<boolean>();
   refreshCurso$ = new BehaviorSubject<boolean>(true);
+  onClose$ = new Subject<Curso>();
 
   modalRef: BsModalRef;
   frutas: any[];
+  idCurso: number;
+
 
   constructor(private cursoService: CursoService,
               private modalService: BsModalService) { }
@@ -52,6 +57,12 @@ export class CursosListaComponent implements OnInit {
     this.modalRef.content.mensagem = 'Erro ao carregar os cursos. Tente novamente mais tarde.';
   }
 
+  handleErrorDelete() {
+    this.modalRef = this.modalService.show(AlertModalComponent);
+    this.modalRef.content.tipo = 'danger';
+    this.modalRef.content.mensagem = 'Erro ao excluir o curso';
+  }
+
   testeModal() {
     this.modalRef = this.modalService.show(TesteModalComponent);
     this.modalRef.content.frutas = this.frutas;
@@ -61,6 +72,9 @@ export class CursosListaComponent implements OnInit {
     this.modalRef = this.modalService.show(CursosFormModalComponent);
     this.modalRef.content.curso = curso;
     this.modalRef.content.titulo = "Editar";
+
+    this.modalRef.content.onClose = new Subject<Curso>();
+    this.modalRef.content.onClose.subscribe( _ => this.refreshCurso$.next(true))
   }
 
   salvar() {
@@ -72,6 +86,28 @@ export class CursosListaComponent implements OnInit {
       console.log('result: ', result);
       this.refreshCurso$.next(true);  //atualiza o cursos$
      })
+  }
+
+  remover(id: number) {
+    this.modalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' }); //usando ng-template neste caso
+    this.idCurso = id;
+  }
+
+  confirmarExclusao() {
+    this.cursoService.remover(this.idCurso).subscribe(
+      success => {
+        this.refreshCurso$.next(true)
+        this.modalRef.hide();
+      },
+      error => {
+        this.handleErrorDelete();
+        this.modalRef.hide();
+      }
+    );
+  }
+
+  cancelarExclusao() {
+    this.modalRef.hide();
   }
 
 

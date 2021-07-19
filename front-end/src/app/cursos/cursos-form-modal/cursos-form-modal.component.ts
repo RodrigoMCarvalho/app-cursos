@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Curso } from './../../models/curso-model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { CursoService } from './../../services/curso.service';
 
 @Component({
@@ -50,14 +49,21 @@ export class CursosFormModalComponent implements OnInit {
 
   salvar() {
     this.submitted = true;
-    this.cursoService.salvar(this.form.value).subscribe(curso =>
-      this.bsModalRef.content.onClose.next(curso)    //subject emitindo o curso criado para a chamada do modal
-    );
-    this.bsModalRef.hide();
+
+    if (this.form.valid) {
+      if (this.form.value.id) {
+        this.cursoService.atualizar(this.form.value).subscribe( _ => this.bsModalRef.content.onClose.next());
+      } else {
+        this.cursoService.salvar(this.form.value).subscribe(curso =>
+          this.bsModalRef.content.onClose.next(curso)    //subject emitindo o curso criado para a chamada do modal
+        );
+      }
+      this.bsModalRef.hide();
+    }
   }
 
   hasError(field: string) {
-    return this.form.get('nome').errors;
+    return this.form.get(field).errors;
   }
 
   fechar() {
