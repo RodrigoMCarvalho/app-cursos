@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h4><strong>{{ titulo }} curso</strong></h4>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="fechar()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form action="" class="needs-validation" novalidate [formGroup]="form">
+    <div class="form-group">
+      <div class="col-xs-4" >
+        <label for="nome">Nome do Curso</label>
+        <input
+          type="text"
+          class="form-control input-lg"
+          id="nome"
+          placeholder="Digite o nome do curso"
+          formControlName="nome"
+          [ngClass]="{ 'is-invalid': submitted && hasError('nome')}"
+        />
+        <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['required']" >
+          Por favor informe um nome para o curso.
+        </div>
+        <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['minlength']">
+          Nome do curso deve ter no mínino 3 caracteres.
+        </div>
+        <div class="invalid-feedback" *ngIf="hasError('nome') && hasError('nome')['maxlength']">
+          Nome do curso deve ter no máximo 255 caracteres.
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="salvar()">Salvar</button>
+  <button type="button" class="btn btn-secundary" (click)="fechar()">Fechar</button>
+</div>

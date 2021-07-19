@@ -1,12 +1,13 @@
 import { CursoService } from './../../services/curso.service';
 
 import { Component, OnInit } from '@angular/core';
-import { Curso } from './curso-model';
-import { empty, Observable, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Curso } from '../../models/curso-model';
+import { BehaviorSubject, empty, Observable, Subject } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from './../../shared/alert-modal/alert-modal.component';
 import { TesteModalComponent } from './../../shared/teste-modal/teste-modal.component';
+import { CursosFormModalComponent } from './../cursos-form-modal/cursos-form-modal.component';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -19,6 +20,7 @@ export class CursosListaComponent implements OnInit {
   // cursos: Curso[];
   cursos$: Observable<Curso[]>;
   error$ = new Subject<boolean>();
+  refreshCurso$ = new BehaviorSubject<boolean>(true);
 
   modalRef: BsModalRef;
   frutas: any[];
@@ -33,7 +35,7 @@ export class CursosListaComponent implements OnInit {
 
   carregarCursos() {
     // this.cursoService.getCursos().subscribe(dados => this.cursos = dados);
-    this.cursos$ = this.cursoService.getCursos()
+    this.cursos$ = this.refreshCurso$.pipe(switchMap( _ => this.cursoService.getCursos()
       .pipe(
         catchError(error => {
           console.error(error);
@@ -41,7 +43,7 @@ export class CursosListaComponent implements OnInit {
           this.handleError();
           return empty();
         })
-      );
+      )));
   }
 
   handleError() {
@@ -55,9 +57,21 @@ export class CursosListaComponent implements OnInit {
     this.modalRef.content.frutas = this.frutas;
   }
 
-  atualizarCurso(curso: Curso) {
-    this.modalRef = this.modalService.show(TesteModalComponent);
+  atualizar(curso: Curso) {
+    this.modalRef = this.modalService.show(CursosFormModalComponent);
     this.modalRef.content.curso = curso;
+    this.modalRef.content.titulo = "Editar";
+  }
+
+  salvar() {
+    this.modalRef = this.modalService.show(CursosFormModalComponent);
+    this.modalRef.content.titulo = "Adicionar";
+    this.modalRef.content.onClose = new Subject<Curso>();
+
+    this.modalRef.content.onClose.subscribe(result => {  //result é o curso criado emitido do CursosFormModalComponent ao salvar
+      console.log('result: ', result);
+      this.refreshCurso$.next(true);  //atualiza o cursos$
+     })
   }
 
 

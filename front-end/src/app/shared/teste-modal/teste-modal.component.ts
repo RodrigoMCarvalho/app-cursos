@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Curso } from './../../cursos/cursos-lista/curso-model';
+import { Curso } from '../../models/curso-model';
 
 @Component({
   selector: 'app-teste-modal',
@@ -19,6 +19,5 @@ export class TesteModalComponent implements OnInit {
 
   fechar() {
     this.bsModalRef.hide();
-
   }
 }

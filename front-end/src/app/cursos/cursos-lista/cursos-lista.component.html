@@ -4,9 +4,9 @@
       <h4>Cursos</h4>
     </div>
     <div class="float-right">
-      <button type="button" class="btn btn-primary" [routerLink]="['novo']">Novo Curso</button>
+      <button type="button" class="btn btn-primary" (click)="salvar()">Novo Curso</button>
       <button type="button" class="btn btn-secondary" (click)="carregarCursos()">Atualizar</button>
-      <button type="button" class="btn btn-secondary" (click)="testeModal()">modal</button>
+      <!-- <button type="button" class="btn btn-secondary" (click)="testeModal()">modal</button> -->
     </div>
   </div>
   <div class="card-body">
@@ -24,7 +24,7 @@
           <td>{{ curso.nome }}</td>
           <td>
             <span class="float-right">
-              <button class="btn btn-outline-warning mb-1 btn-sm" (click)="atualizarCurso(curso)">
+              <button class="btn btn-outline-warning mb-1 btn-sm" (click)="atualizar(curso)">
                 Atualizar
               </button>
 
