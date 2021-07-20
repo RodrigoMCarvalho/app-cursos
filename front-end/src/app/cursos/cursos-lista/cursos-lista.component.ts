@@ -8,6 +8,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from './../../shared/alert-modal/alert-modal.component';
 import { TesteModalComponent } from './../../shared/teste-modal/teste-modal.component';
 import { CursosFormModalComponent } from './../cursos-form-modal/cursos-form-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -31,7 +32,9 @@ export class CursosListaComponent implements OnInit {
 
 
   constructor(private cursoService: CursoService,
-              private modalService: BsModalService) { }
+              private modalService: BsModalService,
+              private toastr: ToastrService
+              ) { }
 
   ngOnInit(): void {
     this.carregarCursos();
@@ -96,12 +99,14 @@ export class CursosListaComponent implements OnInit {
   confirmarExclusao() {
     this.cursoService.remover(this.idCurso).subscribe(
       success => {
-        this.refreshCurso$.next(true)
+        this.refreshCurso$.next(true);
         this.modalRef.hide();
+        this.toastr.success("Curso excluído com sucesso!");
       },
       error => {
         this.handleErrorDelete();
         this.modalRef.hide();
+        this.toastr.error("Erro para excluir o curso.")
       }
     );
   }
