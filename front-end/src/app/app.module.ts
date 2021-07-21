@@ -9,11 +9,17 @@ import { SharedModule } from './shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavbarComponent } from './navbar/navbar.component';
+import { BemVindoComponent } from './bem-vindo/bem-vindo.component';
+import { AlunosComponent } from './alunos/alunos.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [		
+    AppComponent,
+      NavbarComponent,
+      BemVindoComponent,
+      AlunosComponent
+   ],
   imports: [
   BrowserModule,
   FormsModule,
