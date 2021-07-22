@@ -11,14 +11,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BemVindoComponent } from './bem-vindo/bem-vindo.component';
-import { AlunosComponent } from './alunos/alunos.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
       NavbarComponent,
-      BemVindoComponent,
-      AlunosComponent
+      BemVindoComponent
    ],
   imports: [
   BrowserModule,

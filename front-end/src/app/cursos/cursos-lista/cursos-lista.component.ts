@@ -43,7 +43,7 @@ export class CursosListaComponent implements OnInit {
 
   carregarCursos() {
     // this.cursoService.getCursos().subscribe(dados => this.cursos = dados);
-    this.cursos$ = this.refreshCurso$.pipe(switchMap( _ => this.cursoService.getCursos()
+    this.cursos$ = this.refreshCurso$.pipe(switchMap( response => this.cursoService.getCursos()
       .pipe(
         catchError(error => {
           console.error(error);
