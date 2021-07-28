@@ -16,7 +16,7 @@ export class CursoService {
   getCursos() {
     return this.http.get<Curso[]>(`${this.API}/cursos`)
       .pipe(
-        delay(2000) //para testar loading
+        delay(1000) //para testar loading
         //tap(console.log)
       );
   }

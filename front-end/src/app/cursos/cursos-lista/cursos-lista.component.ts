@@ -30,7 +30,6 @@ export class CursosListaComponent implements OnInit {
   frutas: any[];
   idCurso: number;
 
-
   constructor(private cursoService: CursoService,
               private modalService: BsModalService,
               private toastr: ToastrService

@@ -1,1 +1,41 @@
-<p>alunos-list works!</p>
+<div class="card mt-3">
+  <div class="card-header">
+    <div class="float-left">
+      <h4>Alunos</h4>
+    </div>
+    <div class="float-right">
+      <button type="button" class="btn btn-primary" routerLink="novo">Novo Aluno</button>
+      <!-- <button type="button" class="btn btn-secondary" (click)="testeModal()">modal</button> -->
+    </div>
+  </div>
+  <div class="card-body">
+    <table id="tableAlunos" class="table table-hover table-bordered" *ngIf="alunos$ | async as alunos">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Aluno</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let aluno of alunos" >
+          <td>{{ aluno.id }}</td>
+          <td>{{ aluno.nome }}</td>
+          <td>
+            <span class="float-right">
+              <button class="btn btn-outline-warning mb-1 btn-sm">
+                Atualizar
+              </button>
+
+              <button class="btn btn-outline-danger mb-1 btn-sm">
+                Remover
+              </button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
