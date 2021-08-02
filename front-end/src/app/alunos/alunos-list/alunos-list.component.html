@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="card-body">
-    <table id="tableAlunos" class="table table-hover table-bordered" *ngIf="alunos$ | async as alunos">
+    <table id="tableAlunos" class="table table-hover table-bordered" *ngIf="alunos$ | async as alunos; else loading">
       <thead>
         <tr>
           <th>#</th>
@@ -23,7 +23,7 @@
           <td>{{ aluno.nome }}</td>
           <td>
             <span class="float-right">
-              <button class="btn btn-outline-warning mb-1 btn-sm">
+              <button class="btn btn-outline-warning mb-1 btn-sm" (click)="editar(aluno.id)">
                 Atualizar
               </button>
 
@@ -38,4 +38,14 @@
 
   </div>
 </div>
+
+
+<ng-template #loading>
+  <div class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden"></span>
+    </div>
+  </div>
+</ng-template>
+
 

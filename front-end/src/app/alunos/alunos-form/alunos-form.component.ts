@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-alunos-form',
@@ -23,6 +24,7 @@ export class AlunosFormComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
+    this.atualizar();
     this.formulario();
   }
 
@@ -31,6 +33,30 @@ export class AlunosFormComponent implements OnInit {
       id: [null],
       nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]]
     })
+  }
+
+  updateForm(aluno) {
+    this.form.patchValue({
+      id: aluno.id,
+      nome: aluno.nome
+    })
+  }
+
+  atualizar() {
+    // this.route.params.subscribe(
+    //   (params: any) => {
+    //     const id = params['id'];
+    //     this.alunoService.loadByID(id).subscribe(
+    //       aluno => this.updateForm(aluno)
+    //     )
+    //   }
+    // )d
+    this.route.params
+    .pipe(
+      map((params: any) => params['id']), //retorna o ID da rota
+      switchMap(id => this.alunoService.loadByID(id)) //retorna o aluno
+    )
+    .subscribe( aluno => this.updateForm(aluno) )
   }
 
   salvar() {
