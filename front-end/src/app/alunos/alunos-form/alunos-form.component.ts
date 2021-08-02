@@ -29,9 +29,10 @@ export class AlunosFormComponent implements OnInit {
   }
 
   formulario() {
+    const aluno = this.route.snapshot.data['aluno']; //obtém o "aluno" usando Resolve, ao carregar o componente, ganha em performance
     this.form = this.fb.group({
-      id: [null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]]
+      id: [aluno.id],
+      nome: [aluno.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]]
     })
   }
 
@@ -43,6 +44,7 @@ export class AlunosFormComponent implements OnInit {
   }
 
   atualizar() {
+    // --------------  1ª FORMA DE FAZER
     // this.route.params.subscribe(
     //   (params: any) => {
     //     const id = params['id'];
@@ -50,13 +52,15 @@ export class AlunosFormComponent implements OnInit {
     //       aluno => this.updateForm(aluno)
     //     )
     //   }
-    // )d
-    this.route.params
-    .pipe(
-      map((params: any) => params['id']), //retorna o ID da rota
-      switchMap(id => this.alunoService.loadByID(id)) //retorna o aluno
-    )
-    .subscribe( aluno => this.updateForm(aluno) )
+    // )
+
+    // -------------  2ª FORMA DE FAZER
+    // this.route.params
+    // .pipe(
+    //   map((params: any) => params['id']), //retorna o ID da rota
+    //   switchMap(id => this.alunoService.loadByID(id)) //retorna o aluno
+    // )
+    // .subscribe( aluno => this.updateForm(aluno) )
   }
 
   salvar() {
