@@ -13,10 +13,12 @@ export class AlunoResolverGuard implements Resolve<Aluno>{
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Aluno> {
 
+    //se existir um ID na rota (editar), busca o aluno
     if(route.params && route.params['id']) {
       return this.alunoService.loadByID(route.params['id']);
     }
 
+    //caso seja um novo aluno, retorna null
     return of({ id: null, nome: null });
   }
 

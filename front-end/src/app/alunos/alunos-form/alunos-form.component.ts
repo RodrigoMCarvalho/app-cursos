@@ -29,7 +29,7 @@ export class AlunosFormComponent implements OnInit {
   }
 
   formulario() {
-    const aluno = this.route.snapshot.data['aluno']; //obtém o "aluno" usando Resolve, ao carregar o componente, ganha em performance
+    const aluno = this.route.snapshot.data['aluno']; //obtém o "aluno" usando Resolve ao carregar o componente, ganha em performance
     this.form = this.fb.group({
       id: [aluno.id],
       nome: [aluno.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(255)]]
