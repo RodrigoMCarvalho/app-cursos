@@ -37,13 +37,20 @@
       </tbody>
     </table>
 
-    <ng-template #loading>
+    <!-- <ng-template #loading>
       <div *ngIf="error$ | async; else loadingNoError" >
         Erro ao carregar os cursos. Tente novamente mais tarde.
       </div>
       <ng-template #loadingNoError>
         <span>Carregando os cursos .....</span>
       </ng-template>
+    </ng-template> -->
+    <ng-template #loading>
+      <div class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden"></span>
+        </div>
+      </div>
     </ng-template>
 
     <ng-template #deleteModal>

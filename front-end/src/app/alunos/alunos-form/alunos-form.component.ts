@@ -24,7 +24,7 @@ export class AlunosFormComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
-    this.atualizar();
+    //this.atualizar();
     this.formulario();
   }
 
@@ -67,11 +67,11 @@ export class AlunosFormComponent implements OnInit {
   salvar() {
     this.alunoService.save(this.form.value).subscribe(
       success => {
-        this.toastr.success("Aluno cadastrado com sucesso!");
+        this.toastr.success("Aluno(a) cadastrado(a) com sucesso!");
         this.location.back();
       },
       error => {
-        this.toastr.error("Erro para cadastrar o aluno!");
+        this.toastr.error("Erro para cadastrar o(a) aluno(a)!");
       }
     )
   }

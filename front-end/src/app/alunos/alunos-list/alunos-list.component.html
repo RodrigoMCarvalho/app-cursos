@@ -27,7 +27,7 @@
                 Atualizar
               </button>
 
-              <button class="btn btn-outline-danger mb-1 btn-sm">
+              <button class="btn btn-outline-danger mb-1 btn-sm" (click)="remover(aluno.id)">
                 Remover
               </button>
             </span>
@@ -45,6 +45,15 @@
     <div class="spinner-border" role="status">
       <span class="visually-hidden"></span>
     </div>
+  </div>
+</ng-template>
+
+
+<ng-template #deleteModal>
+  <div class="modal-body text-center">
+    <p>Confirma a exclusão do(a) aluno(a)?</p>
+    <button type="button" class="btn btn-default" (click)="confirmarExclusao()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="cancelarExclusao()">Não</button>
   </div>
 </ng-template>
 
