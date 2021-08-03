@@ -36,12 +36,13 @@ export class AlunosFormComponent implements OnInit {
     })
   }
 
-  updateForm(aluno) {
-    this.form.patchValue({
-      id: aluno.id,
-      nome: aluno.nome
-    })
-  }
+  // --------------  USANDO RESOLVER NÃO É NECESSARIO
+  // updateForm(aluno) {
+  //   this.form.patchValue({
+  //     id: aluno.id,
+  //     nome: aluno.nome
+  //   })
+  // }
 
   atualizar() {
     // --------------  1ª FORMA DE FAZER

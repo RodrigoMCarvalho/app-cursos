@@ -8,12 +8,12 @@ const routes: Routes = [
   { path: '', component: AlunosListComponent},
   { path: 'novo', component: AlunosFormComponent,
   resolve: {
-    aluno: AlunoResolverGuard
+    aluno: AlunoResolverGuard   //aluno = nome do atributo que o componente vai usar para capturar o dado
   }
 },
   { path: 'editar/:id', component: AlunosFormComponent,
   resolve: {
-    aluno: AlunoResolverGuard
+    aluno: AlunoResolverGuard   //aluno = nome do atributo que o componente vai usar para capturar o dado
   }
 },
 ];
